@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner privSp1;
     private TextView privTV;
     private Socket skt;
-    private String sIP = "13.81.64.104";
-    private int nPN = 30021;
+    private String sIP = "196.31.118.146";
+    private int nPN = 3110;
     private String all_mtn = ",R2,R5,R15,R30,R60,R180";
     private String prm;
     private String msg0;
@@ -80,25 +80,22 @@ public class MainActivity extends AppCompatActivity {
             try {
                 skt = new Socket(sIP,nPN);
                 if (skt.isConnected()) {
-                    msg0 = "Echo Hi";
+                    msg0 = "Hi VS17188N00794|18300";
                     j = TalkTo(); if (j == 0) { skt.close(); return; }
                     sg = msg1.substring(0, 2);
-                    if (sg.compareTo("Ok") != 0) { skt.close(); return; }
+                    if (sg.compareTo("Hi") != 0) { skt.close(); return; }
                     /* * */
-                    msg0 = "Echo Vend " + prm;
+                    msg0 = "Airtime " + prm;
                     j = TalkTo(); if (j == 0) { skt.close(); return; }
-                    sg = msg1.substring(0, 2);
+                    sg = msg1.substring(0, 2); msg2 = msg1;
                     if (sg.compareTo("Ok") != 0) { skt.close(); return; }
-                    tg = msg1;
                     /* * */
-                    msg0 = "Echo Bye";
+                    msg0 = "Bye";
                     j = TalkTo(); if (j == 0) { skt.close(); return; }
                     sg = msg1.substring(0, 2);
                     if (sg.compareTo("Ok") != 0) { skt.close(); return; }
                     /* * */
                     skt.close();
-                    msg2 = tg;
-
                 } else msg1 = "No Not connected";
             } catch (Exception ex) {
                 msg1 = "No " + ex.toString();
@@ -133,7 +130,31 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
             {
                 msg2 = "";
-                prm = privSp1.getSelectedItem().toString();
+                int n = privSp1.getSelectedItemPosition();
+                switch(n) {
+                    case 0:
+                        prm = "";
+                        break;
+                    case 1:
+                        prm = "Airtime mtn5|2|1234|U|20111214|004528|0|";
+                        break;
+                    case 2:
+                        prm = "Airtime mtn5|2|1234|U|20111214|004528|0|";
+                        break;
+                    case 3:
+                        prm = "Airtime mtn5|2|1234|U|20111214|004528|0|";
+                        break;
+                    case 4:
+                        prm = "Airtime mtn5|2|1234|U|20111214|004528|0|";
+                        break;
+                    case 5:
+                        prm = "Airtime mtn5|2|1234|U|20111214|004528|0|";
+                        break;
+                    case 6:
+                        prm = "Airtime mtn5|2|1234|U|20111214|004528|0|";
+                        break;
+                    default: prm = ""; break;
+                }
                 thr = new Thread(new ClientThread());
                 thr.start();
             }
